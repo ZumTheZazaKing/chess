@@ -1,6 +1,9 @@
 import { useState, useContext, useEffect } from "react";
 import Chessboard from "chessboardjsx";
+import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
 import { Context } from "../context/Context";
+import { toast } from 'react-toastify';
 const Chess = require("chess.js");
 
 export const chess = new Chess('8/8/8/8/8/8/8/8 w - - 0 1');
@@ -107,13 +110,21 @@ export const ChessboardContainer = () => {
                     checkingPackage();
                 }
             }
+        } else {
+            if(gameStart){return toast.error("Illegal Move")}
+            else{return toast.warning("Game Has Ended")}
         }
+            
     }
 
     return (
         <div id="Chessboard">
-            <button onClick={() => {vsComputer()}} disabled={gameStart}>VS Computer</button>
-            <button onClick={() => {vsHuman()}} disabled={gameStart}>VS Human</button>
+            <br/>
+            <Stack id="options" spacing={2} direction="row">
+                <Button variant="contained" onClick={() => {vsComputer()}} disabled={gameStart}>VS Computer</Button>
+                <Button variant="contained" color="secondary" onClick={() => {vsHuman()}} disabled={gameStart}>VS Human</Button>
+            </Stack>
+            <br/>
             <Chessboard
                 width={chessboardwidth}
                 position={fen}
@@ -124,6 +135,7 @@ export const ChessboardContainer = () => {
                     promotion:'q'
                 })}
             />
+            <br/>
             <h3 id="message">{message} {inCheck ? "(In Check)" : ""}</h3>
         </div>
     )

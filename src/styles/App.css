@@ -1,7 +1,9 @@
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap");
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: "Quicksand", sans-serif;
 }
 
 body {
@@ -9,6 +11,24 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  background-image: url(../images/wood_background.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
+body #loading {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+body #Chessboard #options {
+  display: flex;
+  justify-content: center;
+}
+body #Chessboard h3 {
+  text-align: center;
 }
 
 /*# sourceMappingURL=App.css.map */
