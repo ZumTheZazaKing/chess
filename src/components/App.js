@@ -5,16 +5,16 @@ const Chessboard = lazy(() => import('./Chessboard').then(module => ({default:mo
 
 function App() {
 
-  const [turn, setTurn] = useState("w");
+  const [turn, setTurn] = useState(null);
 
   return (
     <div className="App">
       <Suspense fallback={<h1>Loading...</h1>}>
         <Context.Provider value={{
-            setTurn
+            turn,setTurn
           }}>
 
-          <Chessboard/>
+            <Chessboard/>
 
         </Context.Provider>
       </Suspense>
