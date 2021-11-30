@@ -62,6 +62,11 @@ export const ChessboardContainer = () => {
         setEnemyType("computer");
     }
 
+    const vsHuman = () => {
+        newGame();
+        setEnemyType("human");
+    }
+
     const handleMove = (move) => {
         if(chess.move(move)){
 
@@ -85,12 +90,24 @@ export const ChessboardContainer = () => {
                     }
                 },500);
             }
+            if(enemyType === "human"){
+                if(turn === "w"){
+                    setTurn("b");
+                    setMessage("Black's Turn");
+                    checkingPackage();
+                } else if(turn === "b"){
+                    setTurn("w");
+                    setMessage("White's Turn");
+                    checkingPackage();
+                }
+            }
         }
     }
 
     return (
         <div id="Chessboard">
             <button onClick={() => {vsComputer()}}>VS Computer</button>
+            <button onClick={() => {vsHuman()}}>VS Human</button>
             <Chessboard
                 width={chessboardwidth}
                 position={fen}
