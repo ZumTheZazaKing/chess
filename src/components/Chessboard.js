@@ -14,6 +14,7 @@ export const ChessboardContainer = () => {
     const [enemyType, setEnemyType] = useState(null);
     const [message, setMessage] = useState("");
     const [inCheck, setInCheck] = useState(false);
+    const [gameStart, setGameStart] = useState(false);
 
     useEffect(() => {
         setInterval(() => {
@@ -25,6 +26,8 @@ export const ChessboardContainer = () => {
         chess.load('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1');
         setFen(chess.fen())
         setMessage("White's Turn")
+        setGameStart(true);
+        setTurn('w');
     }
 
     const checkInCheck = () => {if(chess.in_check()){setInCheck(true)}else{setInCheck(false)}}
@@ -32,6 +35,7 @@ export const ChessboardContainer = () => {
     const checkInCheckmate = () => {
         if(chess.in_checkmate()){
             setInCheck(false);
+            setGameStart(false);
             turn === "w" ? setMessage("White Wins") : setMessage("Black Wins");
         }
     }
@@ -39,6 +43,7 @@ export const ChessboardContainer = () => {
     const checkInStalemate = () => {
         if(chess.in_stalemate()){
             setInCheck(false);
+            setGameStart(false);
             setMessage("Stalemate")
         }
     }
@@ -46,6 +51,7 @@ export const ChessboardContainer = () => {
     const checkDraw = () => {
         if(chess.in_draw()){
             setInCheck(false);
+            setGameStart(false);
             setMessage("Draw");
         }
     }
@@ -89,8 +95,8 @@ export const ChessboardContainer = () => {
                         checkingPackage();
                     }
                 },500);
-            }
-            if(enemyType === "human"){
+
+            } else if(enemyType === "human"){
                 if(turn === "w"){
                     setTurn("b");
                     setMessage("Black's Turn");
@@ -106,8 +112,8 @@ export const ChessboardContainer = () => {
 
     return (
         <div id="Chessboard">
-            <button onClick={() => {vsComputer()}}>VS Computer</button>
-            <button onClick={() => {vsHuman()}}>VS Human</button>
+            <button onClick={() => {vsComputer()}} disabled={gameStart}>VS Computer</button>
+            <button onClick={() => {vsHuman()}} disabled={gameStart}>VS Human</button>
             <Chessboard
                 width={chessboardwidth}
                 position={fen}

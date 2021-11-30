@@ -5,7 +5,7 @@ const Chessboard = lazy(() => import('./Chessboard').then(module => ({default:mo
 
 function App() {
 
-  const [turn, setTurn] = useState(null);
+  const [turn, setTurn] = useState("w");
 
   return (
     <div className="App">
